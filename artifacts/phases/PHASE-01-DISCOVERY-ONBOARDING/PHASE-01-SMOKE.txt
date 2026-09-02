@@ -1,0 +1,18 @@
+PHASE-01 SMOKE
+Mission: MCF-20260902-AGENT-ANDRE-ONBOARDING
+
+S01 canonical_entrypoint_exists: PASS
+  path: onboarding/ONBOARDING-START.md
+
+S02 canonical_entrypoint_is_self_contained: PASS
+  evidence: interview rules + confirmation gate + YAML output contract are embedded in one file
+
+S03 yaml_example_parse: PASS
+  parser_result_type: mapping
+  onboarding_result.status: CONFIRMED
+  onboarding_result.top_level_field_count: 17
+
+S04 no_live_interview_claim: PASS
+  live_behavior: PENDING_EXTERNAL_INTERVIEW
+
+SMOKE_VERDICT: PASS
