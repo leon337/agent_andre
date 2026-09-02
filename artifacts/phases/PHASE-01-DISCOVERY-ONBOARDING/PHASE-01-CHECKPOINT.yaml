@@ -1,7 +1,7 @@
 checkpoint:
   mission_id: MCF-20260902-AGENT-ANDRE-ONBOARDING
   phase_id: PHASE-01-DISCOVERY-ONBOARDING
-  cycle: 1
+  cycle: 2
   phase_state: ENTREGUE
   mission_state: AGUARDANDO_DEPENDENCIA_EXTERNA
   repository: leon337/agent_andre
@@ -9,20 +9,31 @@ checkpoint:
   canonical_artifact: onboarding/ONBOARDING-START.md
 
   validation:
-    static_review: PASS
-    yaml_smoke: PASS
-    live_interview: PENDING
+    structural_logic: PASS
+    self_contained_prompt: PASS
+    conversational_usability_feedback: FAIL_FIXED
+    naturalness_scenarios_added: true
+    live_interview_complete: PENDING
+    yaml_from_real_interview: PENDING
+
+  latest_evidence:
+    - "André avaliou a primeira versão antes da entrevista completa."
+    - "A lógica foi considerada adequada, mas a experiência foi percebida como burocrática."
+    - "ONBOARDING-START.md foi refatorado para conversa adaptativa e linguagem natural."
+    - "T11 e T12 foram adicionados para naturalidade e encerramento sem burocracia desnecessária."
 
   key_decisions:
-    - "ONBOARDING-START.md é o ponto de entrada canônico."
+    - "Rigor de validação permanece interno; a experiência visível deve ser conversacional."
+    - "Uma pergunta por vez é o padrão, com próxima pergunta derivada da resposta anterior."
+    - "O entrevistado não deve ver estados internos ou terminologia do MCF."
+    - "Não prolongar a entrevista apenas para preencher campos opcionais."
     - "Ideias de solução permanecem candidatas até serem justificadas pelo objetivo."
-    - "Contradições materiais abertas impedem status CONFIRMED."
-    - "O handoff estruturado preserva o estado necessário para a próxima fase."
+    - "Contradições materiais abertas impedem confirmação final."
     - "Arquitetura e implementação do agente final permanecem fora desta fase."
 
   open_findings:
-    - "Executar o protocolo em conversa real com André."
-    - "Avaliar o resultado antes de iniciar definição do produto."
+    - "Executar a versão revisada em conversa completa com André."
+    - "Inspecionar o onboarding_result real antes de iniciar definição do produto."
 
   dependency:
     type: EXTERNAL
@@ -31,6 +42,6 @@ checkpoint:
   leo_gate:
     decision: APROVAR_COM_RESSALVAS
     next_state: AGUARDANDO_DEPENDENCIA_EXTERNA
-    reason: "Estrutura aprovada; comportamento real ainda depende da entrevista."
+    reason: "Correção de UX aprovada; comportamento integral ainda depende da entrevista real."
 
-  next_action: "Usar onboarding/ONBOARDING-START.md com André e devolver o YAML resultante ao MESTRE."
+  next_action: "André deve usar a versão atual de onboarding/ONBOARDING-START.md e devolver o YAML resultante ao MESTRE."
