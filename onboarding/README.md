@@ -2,6 +2,14 @@
 
 Este diretório contém o protocolo usado para entrevistar André antes de definir o agente que será construído.
 
+## Arquivo canônico para iniciar
+
+Use **`ONBOARDING-START.md`**.
+
+Ele é autocontido e deve ser copiado integralmente para o chat do André. O arquivo já inclui as regras de entrevista, teste de coerência, confirmação e o formato final de handoff.
+
+`ONBOARDING-PROMPT.md` e `ONBOARDING-SCHEMA.yaml` permanecem como artefatos de referência da primeira iteração e não são necessários para executar o onboarding.
+
 ## Objetivo
 
 Captar e validar:
@@ -20,12 +28,12 @@ O onboarding **não escolhe a solução final** e **não define arquitetura**.
 ## Fluxo de uso
 
 1. André abre um chat novo no ChatGPT.
-2. Cola integralmente o conteúdo de `ONBOARDING-PROMPT.md`.
+2. Cola integralmente o conteúdo de `ONBOARDING-START.md`.
 3. Responde às perguntas progressivamente.
 4. O entrevistador testa coerência e esclarece contradições materiais.
 5. O entrevistador apresenta uma síntese final para validação.
 6. André confirma ou corrige a síntese.
-7. Somente após confirmação válida, o entrevistador gera `ONBOARDING_RESULT.yaml` conforme `ONBOARDING-SCHEMA.yaml`.
+7. Somente após confirmação válida, o entrevistador gera o `onboarding_result` em YAML.
 8. André envia o YAML para Leandro.
 9. Leandro entrega o resultado ao MESTRE para continuidade da missão no MCF.
 
@@ -39,11 +47,11 @@ O status só pode ser `CONFIRMED` quando:
 - André tiver recebido a síntese final;
 - André tiver confirmado explicitamente que a síntese representa o que ele quer fazer.
 
-Se André desejar encerrar antes disso, gerar um resultado `INCOMPLETE`, registrando lacunas e perguntas abertas. Nunca preencher respostas ausentes por inferência.
+Se André desejar encerrar antes disso, gerar resultado `INCOMPLETE`, registrando lacunas e perguntas abertas. Nunca preencher respostas ausentes por inferência.
 
 ## Handoff
 
-A transcrição completa não é requisito para continuidade. O artefato `ONBOARDING_RESULT.yaml` deve preservar o estado necessário para o MCF analisar o problema sem reconstruir contexto inventado.
+A transcrição completa não é requisito para continuidade. O YAML final deve preservar o estado necessário para o MCF analisar o problema sem reconstruir contexto inventado.
 
 ## Privacidade
 
