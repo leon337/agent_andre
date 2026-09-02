@@ -1,0 +1,36 @@
+checkpoint:
+  mission_id: MCF-20260902-AGENT-ANDRE-ONBOARDING
+  phase_id: PHASE-01-DISCOVERY-ONBOARDING
+  cycle: 1
+  phase_state: ENTREGUE
+  mission_state: AGUARDANDO_DEPENDENCIA_EXTERNA
+  repository: leon337/agent_andre
+  working_branch: feat/onboarding-intent-discovery
+  canonical_artifact: onboarding/ONBOARDING-START.md
+
+  validation:
+    static_review: PASS
+    yaml_smoke: PASS
+    live_interview: PENDING
+
+  key_decisions:
+    - "ONBOARDING-START.md é o ponto de entrada canônico."
+    - "Ideias de solução permanecem candidatas até serem justificadas pelo objetivo."
+    - "Contradições materiais abertas impedem status CONFIRMED."
+    - "O handoff estruturado preserva o estado necessário para a próxima fase."
+    - "Arquitetura e implementação do agente final permanecem fora desta fase."
+
+  open_findings:
+    - "Executar o protocolo em conversa real com André."
+    - "Avaliar o resultado antes de iniciar definição do produto."
+
+  dependency:
+    type: EXTERNAL
+    required_input: onboarding_result_yaml
+
+  leo_gate:
+    decision: APROVAR_COM_RESSALVAS
+    next_state: AGUARDANDO_DEPENDENCIA_EXTERNA
+    reason: "Estrutura aprovada; comportamento real ainda depende da entrevista."
+
+  next_action: "Usar onboarding/ONBOARDING-START.md com André e devolver o YAML resultante ao MESTRE."
