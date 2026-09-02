@@ -12,33 +12,27 @@ mission_contract:
     - "detecção de contradições, ambiguidades, lacunas e solução-prematura"
     - "validação de coerência por perguntas de confirmação"
     - "confirmação explícita do entrevistado antes do fechamento"
-    - "geração de ONBOARDING_RESULT.yaml para handoff"
+    - "geração de onboarding_result em YAML para handoff"
   out_of_scope:
     - "definir arquitetura do agente final"
     - "selecionar integrações ou stack tecnológica definitiva"
     - "implementar automações, ferramentas ou código do agente"
     - "publicar ou implantar o agente"
-  inputs:
-    - "intenção inicial de Leandro de ajudar André a criar um agente"
-    - "requisito de onboarding conduzido diretamente com André em chat próprio"
-    - "requisito de testar coerência e confirmar entendimento com André"
   source_of_truth:
     - "leon337/multiagent-collaboration-framework"
     - "leon337/agent_andre"
     - "respostas fornecidas por André durante o onboarding"
-  assumptions:
-    - "André terá acesso a um ChatGPT capaz de receber o prompt de onboarding"
-    - "o resultado estruturado poderá ser copiado e devolvido a Leandro/Mestre"
   acceptance_criteria:
-    - "o onboarding captura intenção, problema, objetivo e resultado esperado em campos distintos"
-    - "o onboarding identifica e tenta resolver contradições materiais antes do fechamento"
+    - "intenção, problema, objetivo e resultado esperado ficam separados"
+    - "contradições materiais são resolvidas antes de CONFIRMED"
     - "fatos, hipóteses, preferências e lacunas ficam diferenciados"
-    - "o onboarding não assume que a solução sugerida inicialmente é a solução correta"
-    - "o entrevistado recebe uma síntese final em linguagem simples"
-    - "o onboarding exige confirmação explícita do entrevistado para status CONFIRMED"
-    - "se houver discordância ou contradição aberta, o processo retorna à descoberta"
-    - "o handoff final registra perguntas não resolvidas e nível de clareza"
-    - "o resultado final pode ser consumido pelo MCF sem acesso à transcrição completa"
+    - "solução inicial não vira requisito automaticamente"
+    - "síntese final é apresentada ao entrevistado"
+    - "CONFIRMED exige confirmação explícita"
+    - "correção do entrevistado retorna a descoberta"
+    - "handoff registra lacunas e clareza"
+    - "resultado pode ser consumido pelo MCF sem transcrição obrigatória"
+    - "ponto de entrada do onboarding é autocontido"
   authorizations:
     - "Leandro autorizou iniciar a missão"
     - "Leandro autorizou trabalhar no repositório leon337/agent_andre"
@@ -48,7 +42,7 @@ mission_contract:
     - "não encerrar onboarding sem confirmação explícita"
     - "não esconder contradições ou lacunas materiais"
   risk_class: B
-  current_state: EM_EXECUCAO
+  current_state: AGUARDANDO_DEPENDENCIA_EXTERNA
   cycle: 1
   selected_skills:
     - MCF-START-MISSION
@@ -63,11 +57,6 @@ mission_contract:
     - Júlia
     - Léo
   decision_authority: Leo
-  human_escalation_triggers:
-    - "mudança material do objetivo da missão"
-    - "ação externa irreversível"
-    - "publicação ou implantação não autorizada"
-    - "pedido explícito de Leandro"
   phase_artifact_directory: artifacts/phases/PHASE-01-DISCOVERY-ONBOARDING
 
 selection:
@@ -81,46 +70,75 @@ selection:
     - Júlia
     - Léo
   justifications:
-    - "Mestre: coordenação, contrato, handoffs e consolidação"
-    - "Leonardo: formulação do problema, objetivo, escopo e critérios de aceite"
-    - "Miriam: estrutura de contexto, proveniência e handoff independente da transcrição"
-    - "Beatriz: avaliação do comportamento do prompt de onboarding e seus modos de falha"
-    - "Augusto: obrigatório em Classe B e em alteração/criação de prompt de agente"
-    - "Júlia: controle de autonomia, identidade, limites e governança do comportamento do onboarding"
-    - "Léo: gate operacional e decisão de continuidade"
-  initial_execution_order:
-    - Mestre
-    - Leonardo
-    - Miriam
-    - Beatriz
-    - Augusto
-    - Júlia
-    - Léo
+    - "Mestre: coordenação, contrato e consolidação"
+    - "Leonardo: problema, objetivo, escopo e critérios"
+    - "Miriam: contexto, proveniência e handoff"
+    - "Beatriz: avaliação do prompt e modos de falha"
+    - "Augusto: observabilidade obrigatória Classe B"
+    - "Júlia: limites, autonomia e governança"
+    - "Léo: gate operacional e continuidade"
 
-handoffs:
-  - handoff_id: H-001
-    mission_id: MCF-20260902-AGENT-ANDRE-ONBOARDING
-    parent_mission_id: null
-    phase_id: PHASE-01-DISCOVERY-ONBOARDING
-    cycle: 1
-    from: Mestre
-    to: Leonardo
-    objective_state: EM_EXECUCAO
-    delivered:
-      - "objetivo da fase"
-      - "requisitos explícitos de Leandro"
-      - "critérios iniciais de aceite"
+chronological_execution:
+  - sequence: 1
+    agent: Mestre
+    activity: "Abrir missão, classificar risco e delimitar fase"
     evidence:
-      - "autorização de Leandro para iniciar"
-      - "MCF Project Operating Instructions v1.2.0"
-      - "MCF Skill Registry v1.0.0"
-    decisions:
-      - "missão classificada como Classe B"
-      - "fase limitada a descoberta e validação de intenção"
-    open_findings:
-      - "validar protocolo contra cenários de contradição e ambiguidade"
-    blockers: []
-    next_action: "Definir estrutura de descoberta que separe problema, intenção, objetivo, solução sugerida e critérios de sucesso."
-    acceptance_for_next_action: "Estrutura deve permitir validar coerência sem induzir respostas."
-    return_to: Mestre
-    continue_in_same_response: true
+      - "branch feat/onboarding-intent-discovery"
+      - "contrato da missão"
+  - sequence: 2
+    agent: Leonardo
+    activity: "Separar intenção, problema, objetivo, solução candidata e aceite"
+    evidence:
+      - "onboarding/ONBOARDING-START.md"
+  - sequence: 3
+    agent: Miriam
+    activity: "Definir contexto transportável e handoff estruturado"
+    evidence:
+      - "contrato YAML embutido no onboarding"
+  - sequence: 4
+    agent: Beatriz
+    activity: "Avaliar cenários de comportamento e detectar dependência de schema externo"
+    evidence:
+      - "onboarding/ONBOARDING-TEST-SCENARIOS.md"
+      - "correção para ONBOARDING-START.md autocontido"
+  - sequence: 5
+    agent: Augusto
+    activity: "Registrar rastreabilidade e separar validação estática de teste real"
+    evidence:
+      - "artifacts/phases/PHASE-01-DISCOVERY-ONBOARDING/"
+  - sequence: 6
+    agent: Júlia
+    activity: "Revisar autonomia, confirmação e limites de coleta"
+    evidence:
+      - "regras de autonomia e privacidade no prompt"
+  - sequence: 7
+    agent: Léo
+    activity: "Gate operacional da fase"
+    evidence:
+      - "validação estática PASS"
+      - "live interview PENDING"
+
+phase_result:
+  phase_state: ENTREGUE
+  canonical_artifact: onboarding/ONBOARDING-START.md
+  static_validation: PASS
+  yaml_smoke: PASS
+  live_interview_behavior: PENDING
+  discovered_failure: "Primeira iteração dependia de schema externo não disponível automaticamente no chat do André."
+  recovery: "Criado ONBOARDING-START.md autocontido e README atualizado para apontá-lo como entrada canônica."
+
+leo_gate:
+  decision: APROVAR_COM_RESSALVAS
+  justification: "O protocolo e o handoff passaram validação estrutural; o comportamento em conversa real só pode ser avaliado após a entrevista."
+  next_state: AGUARDANDO_DEPENDENCIA_EXTERNA
+  escalate_to_leandro: false
+
+next_handoff:
+  required_input: onboarding_result_yaml
+  source: "entrevista de André usando onboarding/ONBOARDING-START.md"
+  return_to: Mestre
+  acceptance_for_return:
+    - "status explicitamente registrado"
+    - "CONFIRMED somente sem contradição material aberta"
+    - "CONFIRMED somente com confirmação explícita"
+  next_action: "Retomar com MCF-DEFINE-PRODUCT após receber o YAML."
