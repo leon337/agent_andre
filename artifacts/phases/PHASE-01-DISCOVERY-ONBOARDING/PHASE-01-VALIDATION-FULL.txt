@@ -1,0 +1,93 @@
+PHASE-01 FULL VALIDATION
+Mission: MCF-20260902-AGENT-ANDRE-ONBOARDING
+Phase: PHASE-01-DISCOVERY-ONBOARDING
+Canonical artifact: onboarding/ONBOARDING-START.md
+
+METHOD
+1. Inspect canonical prompt against acceptance criteria.
+2. Inspect explicit behavioral scenarios in onboarding/ONBOARDING-TEST-SCENARIOS.md.
+3. Verify that the final output contract is embedded in the canonical prompt.
+4. Parse the embedded YAML example with a YAML parser.
+5. Separate static evidence from live behavioral evidence.
+
+CHECKS
+
+V01 — Intent/problem/objective separation
+Expected: distinct concepts and fields.
+Observed: canonical prompt defines each separately and output contract has discovery.intent_statement, problem_statement, objective_statement and desired_outcome.
+Verdict: PASS
+
+V02 — Solution-first resistance
+Expected: initial agent/integration idea is not automatically a requirement.
+Observed: canonical prompt requires solution_candidate treatment and asks for the problem behind it.
+Verdict: PASS
+
+V03 — Material contradiction detection
+Expected: conflicting answers trigger clarification.
+Observed: prompt defines NEEDS_CLARIFICATION and a specific contradiction workflow.
+Verdict: PASS
+
+V04 — Confirmation cannot override unresolved contradiction
+Expected: social confirmation is insufficient while material conflict is open.
+Observed: explicit rule blocks CONFIRMED with material contradictions open.
+Verdict: PASS
+
+V05 — Correction after synthesis
+Expected: correction returns interview to discovery/clarification.
+Observed: prompt explicitly returns to DISCOVERY or NEEDS_CLARIFICATION and requires a new synthesis.
+Verdict: PASS
+
+V06 — Ambiguous confirmation
+Expected: silence, “quase”, “mais ou menos” etc. are not confirmations.
+Observed: explicitly defined.
+Verdict: PASS
+
+V07 — Early termination
+Expected: INCOMPLETE with gaps; no fabricated completion.
+Observed: explicitly defined in output rules.
+Verdict: PASS
+
+V08 — Epistemic separation
+Expected: facts, preferences, assumptions, hypotheses and unknowns are distinct.
+Observed: canonical prompt and YAML contract include separate structures.
+Verdict: PASS
+
+V09 — Autonomy boundaries
+Expected: distinguish autonomous actions, recommendations, approval-required actions and prohibitions.
+Observed: output contract contains separate autonomy_and_limits lists.
+Verdict: PASS
+
+V10 — Sensitive credential handling
+Expected: no secret collection.
+Observed: prompt forbids passwords, tokens, API keys and secrets; only category/need should be recorded.
+Verdict: PASS
+
+V11 — Handoff independence
+Expected: MCF can continue from structured result without mandatory transcript.
+Observed: handoff.transcript_required=false and core discovery/context/coherence fields are included.
+Verdict: PASS_STATIC
+Note: adequacy of a specific handoff still depends on interview completeness.
+
+V12 — Self-contained execution
+Expected: André can paste one artifact into a new chat without the model needing repository access.
+Initial observation: first iteration ONBOARDING-PROMPT.md referenced ONBOARDING-SCHEMA.yaml externally.
+Recovery: created canonical onboarding/ONBOARDING-START.md with embedded output contract and updated onboarding/README.md to point to it.
+Verdict: PASS_AFTER_RECOVERY
+
+V13 — YAML syntax smoke
+Expected: embedded example parses as YAML.
+Execution evidence: example YAML was parsed with a YAML parser as a mapping; onboarding_result.status resolved to CONFIRMED and onboarding_result contained 17 top-level sections/fields.
+Verdict: PASS
+
+V14 — Live model behavior with André
+Expected: real interview follows the protocol and produces a coherent confirmed handoff.
+Evidence: not yet available.
+Verdict: PENDING_EXTERNAL_INTERVIEW
+
+FINAL
+Static structure: PASS
+Output contract: PASS
+Recovery from discovered design flaw: PASS
+Live interview behavior: PENDING_EXTERNAL_INTERVIEW
+
+No claim of live behavioral success is made in this phase.
