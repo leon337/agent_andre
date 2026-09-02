@@ -1,0 +1,22 @@
+PHASE-01 VALIDATION SUMMARY
+Mission: MCF-20260902-AGENT-ANDRE-ONBOARDING
+
+VALIDATION TYPE: static prompt and contract review
+LIVE INTERVIEW EXECUTION: NOT_EXECUTED (external dependency: André)
+
+RESULTS
+- Intent/problem/objective separation: PASS
+- Solution-candidate separation: PASS
+- Material contradiction handling: PASS
+- Explicit confirmation gate: PASS
+- Ambiguous confirmation rejection: PASS
+- Early termination -> INCOMPLETE: PASS
+- Secret/credential avoidance: PASS
+- Handoff independent of transcript: PASS
+- Canonical entrypoint self-contained: PASS after correction
+- YAML example parseability: PASS (parsed as YAML mapping; status=CONFIRMED)
+
+OVERALL STATIC VERDICT: PASS
+LIVE BEHAVIOR VERDICT: PENDING_EXTERNAL_INTERVIEW
+
+Important: this validation does not claim that a real model conversation with André has already passed the behavioral scenarios.
