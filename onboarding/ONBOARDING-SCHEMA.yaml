@@ -1,0 +1,106 @@
+onboarding_result:
+  schema_version: "1.0.0"
+  mission_id: "MCF-20260902-AGENT-ANDRE-ONBOARDING"
+  status: "CONFIRMED | INCOMPLETE"
+
+  interviewee:
+    name: "Andre"
+    role_or_context: null
+
+  discovery:
+    intent_statement: ""
+    problem_statement: ""
+    objective_statement: ""
+    desired_outcome: ""
+    why_now: null
+    consequence_of_no_action: null
+
+  current_context:
+    current_workflow: []
+    people_involved: []
+    channels: []
+    tools: []
+    recurring_tasks: []
+    pain_points: []
+    judgment_heavy_tasks: []
+
+  solution_space:
+    solution_candidates: []
+    capabilities_requested: []
+    capabilities_not_yet_justified: []
+    non_goals: []
+
+  autonomy_and_limits:
+    may_act_without_approval: []
+    may_prepare_or_recommend_only: []
+    always_requires_human_approval: []
+    prohibited_actions: []
+    sensitive_data_categories: []
+    error_consequences: []
+
+  constraints:
+    business_constraints: []
+    technical_constraints: []
+    time_constraints: []
+    budget_constraints: []
+    other_constraints: []
+
+  success:
+    success_criteria: []
+    qualitative_signals: []
+    quantitative_metrics_known: []
+    metrics_not_yet_defined: []
+
+  coherence_review:
+    contradictions_detected: []
+    contradictions_resolved:
+      - id: null
+        issue: null
+        resolution: null
+    contradictions_open: []
+    ambiguities_resolved: []
+    material_gaps: []
+
+  epistemic_status:
+    facts_reported: []
+    preferences: []
+    assumptions: []
+    hypotheses_to_validate: []
+    unknowns: []
+
+  clarity:
+    intent: "LOW | MEDIUM | HIGH"
+    problem: "LOW | MEDIUM | HIGH"
+    objective: "LOW | MEDIUM | HIGH"
+    scope: "LOW | MEDIUM | HIGH"
+    autonomy_limits: "LOW | MEDIUM | HIGH"
+    success_criteria: "LOW | MEDIUM | HIGH"
+    rationale: []
+
+  confirmation:
+    synthesis_presented: false
+    interviewee_confirmed: false
+    confirmation_is_explicit: false
+    corrections_after_first_synthesis: []
+    final_confirmation_summary: null
+
+  handoff:
+    ready_for_mcf_product_analysis: false
+    unresolved_questions: []
+    recommended_next_step: ""
+    transcript_required: false
+
+validation_rules:
+  confirmed_requires:
+    - "confirmation.interviewee_confirmed == true"
+    - "confirmation.confirmation_is_explicit == true"
+    - "coherence_review.contradictions_open is empty for material contradictions"
+    - "discovery.intent_statement is not empty"
+    - "discovery.problem_statement is not empty"
+    - "discovery.objective_statement is not empty"
+    - "discovery.desired_outcome is not empty"
+    - "handoff.ready_for_mcf_product_analysis == true"
+  incomplete_behavior:
+    - "do not infer missing answers"
+    - "record material gaps and unresolved questions"
+    - "handoff.ready_for_mcf_product_analysis should normally be false"
