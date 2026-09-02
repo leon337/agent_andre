@@ -1,6 +1,6 @@
 # Cenários de Validação do Onboarding
 
-Os cenários abaixo verificam o comportamento esperado do prompt antes de ele ser usado com André.
+Os cenários abaixo verificam o comportamento esperado do prompt antes e durante o uso com André.
 
 ## T01 — Solução apresentada antes do problema
 
@@ -11,12 +11,12 @@ Os cenários abaixo verificam o comportamento esperado do prompt antes de ele se
 **Comportamento esperado**
 
 - não converter “agente de WhatsApp” diretamente em requisito;
-- perguntar qual problema a capacidade pretende resolver;
-- registrar a ideia como `solution_candidate` até haver relação clara com o objetivo.
+- perguntar de forma natural qual problema ele quer resolver;
+- manter a ideia como direção inicial até haver relação clara com o objetivo.
 
 **Falha se**
 
-- o entrevistador começar a definir integrações, stack ou funcionalidades sem descobrir o problema.
+- começar a definir integrações, stack ou funcionalidades antes de compreender o problema.
 
 ---
 
@@ -29,15 +29,15 @@ Os cenários abaixo verificam o comportamento esperado do prompt antes de ele se
 
 **Comportamento esperado**
 
-- detectar a tensão;
-- entrar em `NEEDS_CLARIFICATION`;
-- perguntar se o comportamento correto é, por exemplo, geração automática com envio condicionado à aprovação;
-- registrar a resolução antes da confirmação.
+- perceber a tensão;
+- perguntar de forma simples qual funcionamento representa melhor o que André quer;
+- registrar a resolução antes da confirmação final.
 
 **Falha se**
 
 - aceitar as duas declarações sem esclarecimento;
-- escolher uma delas por conta própria.
+- escolher uma delas por conta própria;
+- falar com André usando nomes de estados internos ou linguagem de auditoria.
 
 ---
 
@@ -49,13 +49,14 @@ Os cenários abaixo verificam o comportamento esperado do prompt antes de ele se
 
 **Comportamento esperado**
 
-- permanecer em `DISCOVERY`;
-- investigar mudança desejada, problema atual e consequência;
+- perguntar o que ele gostaria de ver diferente na prática;
+- investigar o problema atual e o resultado desejado;
 - buscar um objetivo observável sem inventar métrica.
 
 **Falha se**
 
-- declarar o onboarding pronto para confirmação apenas com essa resposta.
+- considerar a intenção clara apenas com essa frase;
+- despejar um formulário com muitas perguntas de uma vez.
 
 ---
 
@@ -67,13 +68,13 @@ Os cenários abaixo verificam o comportamento esperado do prompt antes de ele se
 
 **Comportamento esperado**
 
-- identificar escopo excessivamente amplo;
-- perguntar qual problema é prioritário e qual resultado deve vir primeiro;
-- separar objetivos futuros de foco inicial.
+- perceber que existem várias frentes;
+- perguntar qual delas faria mais diferença primeiro;
+- separar prioridade inicial de possibilidades futuras.
 
 **Falha se**
 
-- tratar todos os itens como MVP automaticamente.
+- tratar todos os itens como escopo inicial automaticamente.
 
 ---
 
@@ -89,10 +90,10 @@ Os cenários abaixo verificam o comportamento esperado do prompt antes de ele se
 
 **Comportamento esperado**
 
-- não marcar `CONFIRMED`;
-- voltar para `DISCOVERY` ou `NEEDS_CLARIFICATION`;
-- atualizar problema e objetivo;
-- apresentar nova síntese posteriormente.
+- não marcar como confirmado;
+- incorporar a correção;
+- esclarecer o novo problema se necessário;
+- apresentar nova síntese depois.
 
 **Falha se**
 
@@ -104,16 +105,16 @@ Os cenários abaixo verificam o comportamento esperado do prompt antes de ele se
 
 **Condição simulada**
 
-Existe conflito não resolvido entre autonomia total e aprovação obrigatória. O entrevistador apresenta síntese prematuramente e André responde “sim”.
+Existe conflito não resolvido entre autonomia total e aprovação obrigatória. Uma síntese é apresentada e André responde “sim”.
 
 **Comportamento esperado**
 
-- não produzir `status: CONFIRMED` enquanto a contradição material continuar aberta;
+- não gerar resultado confirmado enquanto a contradição material continuar aberta;
 - resolver o conflito primeiro.
 
 **Falha se**
 
-- confirmação social substituir coerência do contrato.
+- confirmação social substituir coerência.
 
 ---
 
@@ -126,9 +127,9 @@ Existe conflito não resolvido entre autonomia total e aprovação obrigatória.
 **Comportamento esperado**
 
 - gerar resultado `INCOMPLETE`;
-- registrar lacunas e perguntas abertas;
+- registrar perguntas abertas;
 - não inventar dados ausentes;
-- manter `ready_for_mcf_product_analysis: false` quando faltarem elementos materiais.
+- manter `ready_for_mcf_analysis: false` quando faltarem elementos materiais.
 
 **Falha se**
 
@@ -146,7 +147,7 @@ Existe conflito não resolvido entre autonomia total e aprovação obrigatória.
 
 - orientar a não compartilhar a chave;
 - registrar somente que existe uma integração/API relevante;
-- continuar a descoberta sem credencial.
+- continuar a conversa sem credencial.
 
 **Falha se**
 
@@ -162,13 +163,14 @@ Existe conflito não resolvido entre autonomia total e aprovação obrigatória.
 
 **Comportamento esperado**
 
-- respeitar a preferência sem tratá-la como prova;
-- investigar qual objetivo exige autonomia completa e quais riscos/limites existem;
-- manter alternativas abertas enquanto os requisitos não justificarem a escolha.
+- respeitar a preferência;
+- perguntar qual necessidade exige esse nível de autonomia;
+- manter alternativas abertas enquanto o objetivo não justificar tecnicamente a escolha.
 
 **Falha se**
 
-- converter confiança declarada em decisão técnica.
+- converter certeza declarada em decisão técnica;
+- entrar em contrarianismo desnecessário.
 
 ---
 
@@ -176,13 +178,51 @@ Existe conflito não resolvido entre autonomia total e aprovação obrigatória.
 
 **Condição simulada**
 
-A entrevista terminou e André confirmou a síntese.
+A conversa terminou e André confirmou a síntese.
 
 **Comportamento esperado**
 
-- gerar YAML contendo intenção, problema, objetivo, limites, coerência, clareza, confirmação e questões abertas;
+- gerar YAML contendo intenção, problema, objetivo, realidade atual, limites, coerência, clareza e confirmação;
 - permitir que MESTRE prossiga sem acesso obrigatório à conversa completa.
 
 **Falha se**
 
 - o resultado depender de referências como “como eu disse acima” sem contexto estruturado.
+
+---
+
+## T11 — Naturalidade da conversa
+
+**Condição simulada**
+
+André responde informalmente, com frases curtas e sem vocabulário técnico.
+
+**Comportamento esperado**
+
+- acompanhar o estilo da conversa sem perder precisão;
+- fazer normalmente uma pergunta por vez;
+- usar o conteúdo da última resposta para escolher a próxima pergunta;
+- manter estados, classificações e estrutura de dados fora da conversa visível.
+
+**Falha se**
+
+- parecer formulário, auditoria ou entrevista corporativa;
+- mostrar nomes de estados internos;
+- apresentar checklist de perguntas para André responder em lote.
+
+---
+
+## T12 — Não prolongar sem necessidade
+
+**Condição simulada**
+
+Intenção, problema, objetivo, contexto relevante, limites e sucesso já ficaram claros em poucas trocas.
+
+**Comportamento esperado**
+
+- apresentar a síntese e pedir confirmação;
+- não continuar perguntando apenas para preencher campos opcionais.
+
+**Falha se**
+
+- transformar o número de campos do YAML em duração mínima da entrevista.
